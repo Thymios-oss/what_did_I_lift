@@ -1,2 +1,2 @@
-# what_did_I_lift
+# What did I lift ?
 A minimalistic training log app

@@ -40,7 +40,7 @@ To be filled in by the scaffolding PR:
 workout          (id, user_id, performed_on date, name, created_at)
 exercise         (id, user_id, name, created_at)              -- reusable catalog
 workout_exercise (id, workout_id, exercise_id, position)
-workout_set      (id, workout_exercise_id, set_number, reps, weight_kg, created_at)
+exercise_set     (id, workout_exercise_id, set_number, reps, weight_kg, created_at)
 ```
 
 - Each set is its own row, recorded in the order performed (`set_number`). No warm-up flag: warm-ups are simply the earlier sets. Set count is derived.
@@ -48,7 +48,7 @@ workout_set      (id, workout_exercise_id, set_number, reps, weight_kg, created_
 - `performed_on` is the local calendar date you trained, not a timestamp.
 - `weight_kg` is `numeric(6,2)`, nullable for bodyweight moves.
 - Constraints: `reps > 0`, `weight_kg >= 0`, `unique (workout_exercise_id, set_number)`, `exercise.name` unique per user, case-insensitive.
-- Deletes cascade from `workout` down to `workout_set`. An `exercise` in use cannot be deleted (`on delete restrict`).
+- Deletes cascade from `workout` down to `exercise_set`. An `exercise` in use cannot be deleted (`on delete restrict`).
 
 ## Security
 
@@ -69,7 +69,7 @@ workout_set      (id, workout_exercise_id, set_number, reps, weight_kg, created_
 - **Generated DB types** live in `src/lib/database.types.ts`, regenerated with `npm run db:types`, never edited by hand.
 - **Domain types** are camelCase, in each feature's `types.ts`. Only `*Api.ts` imports the generated types and maps rows (`snake_case`) to domain types (`camelCase`).
 - **Migrations as SQL files:** every schema change is a new file in `supabase/migrations/`, never a dashboard edit, and never an edit to an applied migration.
-- **Derive, don't store:** set count, volume and PRs are computed from `workout_set` rows.
+- **Derive, don't store:** set count, volume and PRs are computed from `exercise_set` rows.
 - **One unit:** store weight in kg; convert only for display.
 
 ### State & fetching

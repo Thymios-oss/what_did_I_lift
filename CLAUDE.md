@@ -11,26 +11,29 @@ Later, when needed (do not start these without asking):
 
 ## Status
 
-No code yet. First slice: log today's workout (pick or add an exercise, record sets with reps and weight).
+Scaffolded: tooling, Supabase client and an empty app shell. No schema or features yet.
+Next slice: sign-in, then log today's workout (pick or add an exercise, record sets with reps and weight).
 Update this section when a slice lands.
 
 ## Stack
 
-- **Frontend:** Vite + React + TypeScript
+- **Frontend:** Vite + React + TypeScript (pinned to 6.0 until `typescript-eslint` supports TS 7)
 - **Styling:** Tailwind CSS
 - **Backend/DB:** Supabase (hosted Postgres, auto REST API via supabase-js, Supabase Auth) — no server code to write
 - **Hosting:** any static host (Vercel / Netlify / GitHub Pages), free tier
 
 ## Commands
 
-To be filled in by the scaffolding PR:
+Requires Node 24+ and Docker Desktop running (for local Supabase).
 
-- `npm run dev` — start the app
-- `npm run build` — production build
-- `npm run typecheck` — `tsc --noEmit`
-- `npm run lint` / `npm run format`
-- `npm test` — Vitest
-- `npx supabase start` — local Supabase
+- `npm run dev` — start the app at http://localhost:5173 (use `localhost`, not `127.0.0.1`: auth redirects to `site_url` in `supabase/config.toml`)
+- `npm run build` — typecheck + production build
+- `npm run typecheck` — `tsc -b` (project references; emits nothing)
+- `npm run lint` — ESLint / `npm run format` — Prettier (both run on staged files at commit)
+- CI (`.github/workflows/ci.yml`) runs typecheck, lint, Prettier check, tests and build on every PR and push to `main`
+- `npm test` — Vitest (`src/**/*.test.{ts,tsx}`)
+- `npx supabase start` / `npx supabase stop` — local Supabase (Studio at http://127.0.0.1:54323)
+- `npx supabase db reset` — wipe the local DB and replay all migrations
 - `npx supabase migration new <name>` — new migration file
 - `npm run db:types` — regenerate `src/lib/database.types.ts`
 

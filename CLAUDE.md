@@ -26,11 +26,12 @@ Update this section when a slice lands.
 
 Requires Node 24+ and Docker Desktop running (for local Supabase).
 
-- `npm run dev` — start the app at http://127.0.0.1:5173
+- `npm run dev` — start the app at http://localhost:5173 (use `localhost`, not `127.0.0.1`: auth redirects to `site_url` in `supabase/config.toml`)
 - `npm run build` — typecheck + production build
 - `npm run typecheck` — `tsc -b` (project references; emits nothing)
 - `npm run lint` — ESLint / `npm run format` — Prettier (both run on staged files at commit)
-- `npm test` — Vitest (`src/**/*.test.ts`)
+- CI (`.github/workflows/ci.yml`) runs typecheck, lint, Prettier check, tests and build on every PR and push to `main`
+- `npm test` — Vitest (`src/**/*.test.{ts,tsx}`)
 - `npx supabase start` / `npx supabase stop` — local Supabase (Studio at http://127.0.0.1:54323)
 - `npx supabase db reset` — wipe the local DB and replay all migrations
 - `npx supabase migration new <name>` — new migration file

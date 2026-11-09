@@ -95,13 +95,15 @@ exercise_set     (id, workout_exercise_id, set_number, reps, weight_kg, created_
 
 - **Tests where logic lives:** Vitest for the pure functions in `logic.ts`. Hook tests only when a hook has real branching. No UI tests for now.
 - **Vertical slices:** build each feature end to end (migration → types → API → hook → UI) before starting the next.
+- **One commit per step:** each commit in a PR is one step of the slice (e.g. migration + types, API, hook, UI) and passes `typecheck`, `lint` and `test` on its own. CI only checks the final state, so before merging run `git rebase --exec "npm run typecheck && npm run lint && npm test" origin/main` to check every commit.
+- **Rebase merge:** PRs are merged with `gh pr merge --rebase`, so every commit lands on `main` as written. Before merging, fold review fixes into the commit they fix (`git commit --fixup <sha>`, `git fetch`, `git rebase --autosquash origin/main`, `git push --force-with-lease` on the PR branch). Never force-push `main`.
 
 ## Definition of done
 
 - `typecheck`, `lint` and `test` all pass.
 - New logic has a test.
 - A schema change ships with its migration and regenerated types.
-- The PR or commit message says what was checked by hand.
+- The last commit message of the PR says what was checked by hand (with rebase merge, the PR description does not land on `main`).
 
 ## AI guardrails
 

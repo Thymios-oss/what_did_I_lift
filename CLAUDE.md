@@ -11,8 +11,8 @@ Later, when needed (do not start these without asking):
 
 ## Status
 
-Scaffolded: tooling, Supabase client and an empty app shell. No schema or features yet.
-Next slice: sign-in, then log today's workout (pick or add an exercise, record sets with reps and weight).
+Slice 1 done: email/password sign-in, and logging today's workout (add an exercise by name, log sets with reps and kg, delete a set).
+Not yet: editing a set (delete and re-log for now), removing an exercise from a workout, past workouts.
 Update this section when a slice lands.
 
 ## Stack

@@ -1,7 +1,12 @@
 import { SignInForm } from './features/auth/SignInForm.tsx'
 import { SignOutButton } from './features/auth/SignOutButton.tsx'
 import { useCurrentUser } from './features/auth/useCurrentUser.ts'
+import { TodayWorkout } from './features/workouts/TodayWorkout.tsx'
 
+/**
+ * The whole app: a header, then the sign-in form when signed out or today's
+ * workout when signed in. Renders neither while the stored session loads.
+ */
 function App() {
   const { user, isLoading } = useCurrentUser()
 
@@ -12,7 +17,7 @@ function App() {
         {user && <SignOutButton />}
       </header>
       {!isLoading && !user && <SignInForm />}
-      {user && <p className="text-slate-600">Signed in as {user.email}</p>}
+      {user && <TodayWorkout />}
     </main>
   )
 }

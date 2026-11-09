@@ -23,7 +23,81 @@ export type Database = {
           }
         },"public": {
           Tables: {
-            [_ in never]: never
+            "exercise": {
+                  Row: {
+                    "created_at": string,"id": string,"name": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"name": string,"user_id"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"name"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"exercise_set": {
+                  Row: {
+                    "created_at": string,"id": string,"reps": number,"set_number": number,"weight_kg": number | null,"workout_exercise_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"reps": number,"set_number": number,"weight_kg"?: number | null,"workout_exercise_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"reps"?: number,"set_number"?: number,"weight_kg"?: number | null,"workout_exercise_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "exercise_set_workout_exercise_id_fkey"
+      columns: ["workout_exercise_id"]
+isOneToOne: false
+      referencedRelation: "workout_exercise"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"workout": {
+                  Row: {
+                    "created_at": string,"id": string,"name": string | null,"performed_on": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"name"?: string | null,"performed_on": string,"user_id"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"name"?: string | null,"performed_on"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"workout_exercise": {
+                  Row: {
+                    "exercise_id": string,"id": string,"position": number,"workout_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "exercise_id": string,"id"?: string,"position": number,"workout_id": string
+                  }
+                  Update: {
+                    "exercise_id"?: string,"id"?: string,"position"?: number,"workout_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "workout_exercise_exercise_id_fkey"
+      columns: ["exercise_id"]
+isOneToOne: false
+      referencedRelation: "exercise"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "workout_exercise_workout_id_fkey"
+      columns: ["workout_id"]
+isOneToOne: false
+      referencedRelation: "workout"
+      referencedColumns: ["id"]
+    }
+                  ]
+                }
           }
           Views: {
             [_ in never]: never

@@ -13,6 +13,7 @@ Later, when needed (do not start these without asking):
 
 Slice 1 done: email/password sign-in, and logging today's workout (add an exercise by name, log sets with reps and kg, delete a set).
 Not yet: editing a set (delete and re-log for now), removing an exercise from a workout, past workouts.
+Deployed at https://what-did-i-lift.vercel.app. Sign-up is closed: the only account is Thymios's.
 Update this section when a slice lands.
 
 ## Stack
@@ -20,7 +21,13 @@ Update this section when a slice lands.
 - **Frontend:** Vite + React + TypeScript (pinned to 6.0 until `typescript-eslint` supports TS 7)
 - **Styling:** Tailwind CSS
 - **Backend/DB:** Supabase (hosted Postgres, auto REST API via supabase-js, Supabase Auth) — no server code to write
-- **Hosting:** any static host (Vercel / Netlify / GitHub Pages), free tier
+- **Hosting:** Vercel (Hobby, free) builds and deploys every push to `main`; PRs get preview deploys. The hosted Supabase project (Free) is `qoyewmyzrumhxqljamja`; free projects pause after a week without use.
+
+## Deployment
+
+- Vercel env vars: `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (the publishable key). Vite bakes them into the build, so a change needs a redeploy.
+- Hosted Auth: Site URL is the Vercel address, email confirmation is on, new sign-ups are off. These live in the dashboard; `supabase/config.toml` is for the local stack only, so never `supabase config push` it.
+- Shipping a migration: `npx supabase db push --remote --dry-run`, show the result, then `npx supabase db push --remote` once Thymios says yes. Push it before merging the code that needs it.
 
 ## Commands
 
@@ -36,6 +43,7 @@ Requires Node 24+ and Docker Desktop running (for local Supabase).
 - `npx supabase db reset` — wipe the local DB and replay all migrations
 - `npx supabase migration new <name>` — new migration file
 - `npm run db:types` — regenerate `src/lib/database.types.ts`
+- Supabase CLI v3 targets the local stack by default: add `--remote` to reach the hosted project (linked with `npx supabase link`). From an agent, a hosted write needs `--yes` after asking; read-only queries use `npx supabase db query --remote --read-only "<sql>"`
 
 ## Data model
 
